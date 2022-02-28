@@ -1,0 +1,120 @@
+* Assignment 1
+:PROPERTIES:
+:CUSTOM_ID: h:f3b78dd9-100d-4b13-b2c0-3a7e616d44f3
+:EXPORT_TITLE: SOSC 4300/5500: Assignment 1
+:EXPORT_FILE_NAME: 4300_5500_Fall2020_assignment1
+:Effort:   3:00
+:END:
+:LOGBOOK:
+CLOCK: [2020-09-23 Wed 21:20]
+CLOCK: [2020-09-22 Tue 14:00]--[2020-09-22 Tue 17:00] =>  3:00
+:END:
+
+** Description
+:PROPERTIES:
+:CUSTOM_ID: h:80b16449-aa44-43af-82f7-0f668310618a
+:END:
+
+Welcome to the first assignment! This assignment uses US census data in 1994. The original data is obtained from [[https://archive.ics.uci.edu/ml/datasets/Census-Income+%28KDD%29][here]].
+- The outcome you are going to predict is whether income of the respondent is higher than 50K USD. The outcome column name is =income_morethan_50K= (1 means yes and 0 means no).
+- There are around 40 sociodemographic variables you can use to predict the outcome. 
+
+
+This assignment gives you an hands-on experience of using statistical models for prediction.
+There is *no unique* solution to this task. You are free to explore:
+
+- Different models (linear/logistic regressions, LASSO, Ridge, Tree and Random Forests, or whatever models you want to try).
+- Different set of predictors. Read the dataset description or use a data-driven way to find predictors that can improve out-of-sample prediction tasks.
+
+** Algorithms 
+:PROPERTIES:
+:CUSTOM_ID: h:8D2C26B7-CD9F-4B72-B33E-5FBC1FD0F1B1
+:END:
+We mentioned several algorithms in the classroom (linear/logistic regression, LASSO/Ridge/Elastic Net, Decisios Tree/Random Forests, SVM). Below are some resources you can start with.
+
+**** R users
+:PROPERTIES:
+:CUSTOM_ID: h:3F01A0E6-F918-4759-BA52-C1B3363AACD9
+:END:
+
+- For your reference, on GiHub, I uploaded =example_r_code.md= which should help you go over the process of using logistic regresstion to make a simplest possible prediction model.
+- For more on decision trees, [[https://www.datacamp.com/community/tutorials/decision-trees-R][this link]] provides a great step-by-step guide.
+- For LASSO/Ridge/Elastic Net, check [[https://web.stanford.edu/~hastie/glmnet/glmnet_alpha.html][the inventor's own webpage]]
+
+**** Python users
+:PROPERTIES:
+:CUSTOM_ID: h:63ACC6C3-F29B-462E-A8C2-DC77E07683D7
+:END:
+
+For Python users, [[https://scikit-learn.org/stable/install.html][scikit-learn]] is a great package that allow you to run many machine learning algorithms. 
+Specifically, read their official websites for how you can run
+
+- [[https://scikit-learn.org/stable/modules/linear_model.html][linear/logistic regression, LASSO, RIdge and ElasticNet]]
+- [[https://scikit-learn.org/stable/modules/tree.html][Decision Tree]]
+- [[https://scikit-learn.org/stable/modules/ensemble.html][Bagging trees and random forests]]
+- [[https://scikit-learn.org/stable/modules/svm.html][SVM]]
+  
+** Submit your work
+:PROPERTIES:
+:CUSTOM_ID: h:0822d674-713f-4947-8b9b-ee223f73dd1d
+:END:
+
+
+First, upload your code to GitHub (Python notebook or R markdown file). Your code should contain some documentations, like explaining key components of your codes.
+
+
+
+Next, we will use Kaggle to evaluate your prediction performance.[[https://www.kaggle.com/competitions][ Kaggle]] is a data science learning platform, on which anyone can create prediction challenges and invite other teams around the world to compete for the same prediction task. For each challenge, there is a leaderboard, from which you can easily see which team is achieving the best performance at any time. It's a great place for you to improve your machine learning skills and get some ideas for your projects.
+
+Our assignment can be found here. You need to register a Kaggle account if you do not have one yet.
+
+https://www.kaggle.com/c/2022-hkust-4300-5500/overview
+
+*** How to Submit on Kaggle
+:PROPERTIES:
+:CUSTOM_ID: h:125c6185-1245-4807-9951-cfc33ab09d15
+:END:
+
+
+- Each day, you can submit *5* predictions on Kaggle to evaluate how well your algorithm performs.
+- Click *Submit Predictions* button and you will be directed to a page to upload your output.
+- Drag and drop the file containing predicted outcomes to Kaggle. *The format of the file is described in the next section*. Read it carefully!
+- Kaggle will calculate F1 score for you. What's cool about Kaggle is that you can readily see how you are performing compared with your classmates, from the *leaderboard* panel. 
+- When submitting, use your student ID as the name for you.
+
+**** Grading policy
+:PROPERTIES:
+:CUSTOM_ID: h:c45d1d79-0d5f-4aee-9f4a-a026bfe9bfae
+:END:
+If you can make a successful submission on Kaggle (regardless of the performance), you will automatically get 30% of the scores. The rest 70% will be calculated based on:
+
+1. (40%) Code notebook (Python notebook or R markdown file) on GitHub:  with clear documentation of methods used and attempts you have tried to improve your prediction performances. We will evaluate based on:
+  - how many models you have tried
+  - properly tuned model parameters (i.e., not use the default setting but try to find the best tuning parameter)
+  - discussions on the strategies you used to improve your model prediction
+2. (30%) The best performance you achieved. Here you are competing with your classmates on who can achieve the best performance.
+
+   
+** Files 
+:PROPERTIES:
+:CUSTOM_ID: h:6674d9be-d044-4869-b772-90751fffda98
+:END:
+On Kaggle or GitHub, use the two files for training and testing.
+
+- =census-income-training.csv= : this data contains all of the training data for your model.
+- =census-income-test.csv= : this data contains the test data for your model. It has 71740 rows, with the first row as the header. You will feed this data into your model to make predictions. The outcome, =income_morethan_50K=, is removed from the test set!
+ 
+The file =census-income-column-names.txt= contains detailed descriptions of variables listed in the data frame.
+
+ 
+For your reference, your output should be formatted as the below, with 71740 rows in exact. The first row is header. Then each row should contains Id and *predicted* outcome (1 if predicted outcome > 50K and 0 otherwise). I have uploaded an =example_submission.csv= for your reference.
+
+#+BEGIN_QUOTE
+Id,income_morethan_50K
+
+123456,1
+
+234567,0
+#+END_QUOTE
+
+

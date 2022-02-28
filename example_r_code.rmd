@@ -1,0 +1,59 @@
+---
+title: "Assignment 1 Example Code"
+output: rmarkdown::github_document
+---
+We first read in train and test data
+
+```{r}
+
+train = read.csv("census-income-training.csv")
+test = read.csv("census-income-test.csv")
+```
+
+
+And check dimension of data
+
+```{r}
+print (dim(train))
+print (dim(test))
+```
+
+We train our simplest model. Here I am just using age as the single predictor, and logistic regression as the model.
+
+The outcome is `income_morethan_50K`
+
+```{r}
+m <- glm(income_morethan_50K ~AAGE, train, family = "binomial")
+```
+
+Then we make predictions on test data
+
+```{r}
+# get predicted probability
+predict_probability = predict(m, newdata = test, type = "response")
+```
+
+turn predicted probabilities into predicted categories, if predicted probability is bigger than a threshold $\phi$. Below I set $\phi = 0.5$
+
+```{r}
+predict_Y = ifelse(predict_probability>0.5, a,0)
+print (table(predict_Y))
+```
+
+As you can see, every data point's predicted category is "0". 
+That's a *trivial* solution by predicting every data point belongs to the same majority class. Your prediction should be better than my simplest prediction.
+
+## output
+You should save your output, 
+Your data should contain 71740 rows
+
+- The first row is the header, with two columns, one call "Id" and the other called "income_morethan_50K".
+- From the second row to the 71739 row, 
+
+
+
+```{r}
+output= data.frame(Id = test$Id, income_morethan_50K = predict_Y)
+write.csv(output, "predictions.csv", row.names = FALSE, quote = F)
+```
+
