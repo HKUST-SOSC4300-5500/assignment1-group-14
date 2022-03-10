@@ -52,7 +52,7 @@ print(fit1)
 ```{r}
 ### functions for accuracy, precision and recall
 # accuracy function
-accurary<-function(ypred, y){
+accuracy<-function(ypred, y){
         tab<-table(ypred, y)
         return(sum(diag(tab))/sum(tab))
 }
@@ -87,6 +87,9 @@ lambda_list1<-seq(0.0001, 0.001, 0.0001)
 
 # lasso regressions
 F1_list<-data.frame()
+accuracy_list<-data.frame()
+precision_list<-data.frame()
+recall_list<-data.frame()
 for (i in 1:10){
         #i<-1
         print(i)
@@ -96,15 +99,26 @@ for (i in 1:10){
         pred_y<-predict(fitn, newx=val_data, type="class")
         head(pred_y)
         F1_list<-c(F1_list, F1(pred_y, val_y))
-        
+        accuracy_list<-c(accuracy_list, accuracy(pred_y, val_y))
+        precision_list<-c(precision_list, precision(pred_y, val_y))
+        recall_list<-c(recall_list, recall(pred_y, val_y))
 }
 F1_list1<-F1_list
-plot(lambda_list1, F1_list1)
+accuracy_list1<-accuracy_list
+precision_list1<-precision_list
+recall_list1<-recall_list
+# The summary table of performance
+T1<-cbind(lambda_list1, F1_list1, accuracy_list1, 
+          precision_list1, recall_list1)
+
 # The F1 score decreased with the increased lambda values, we try another ineration loop, make the lambda smaller 
 lambda_list2<-seq(0.00001, 0.0001, 0.00001)
 
 # lasso regressions
 F1_list<-data.frame()
+accuracy_list<-data.frame()
+precision_list<-data.frame()
+recall_list<-data.frame()
 for (i in 1:10){
         #i<-1
         print(i)
@@ -114,10 +128,19 @@ for (i in 1:10){
         pred_y<-predict(fitn, newx=val_data, type="class")
         head(pred_y)
         F1_list<-c(F1_list, F1(pred_y, val_y))
-        
+        accuracy_list<-c(accuracy_list, accuracy(pred_y, val_y))
+        precision_list<-c(precision_list, precision(pred_y, val_y))
+        recall_list<-c(recall_list, recall(pred_y, val_y))
 }
 F1_list2<-F1_list
-# We didn't observe a turning point of the F1 score, but we think this F1 score is good enough. Here we think the optimized lambda is 0.00001
+accuracy_list2<-accuracy_list
+precision_list2<-precision_list
+recall_list2<-recall_list
+# The summary table of performance
+T2<-cbind(lambda_list2, F1_list2, accuracy_list2, 
+          precision_list2, recall_list2)
+rbind(T2, T1)
+# We didn't observe a turning point of the F1 score, but we think this F1 score is good enough. Here we take the optimized lambda is 0.00001
 ```
 
 ## Predict outcome using the test dataset##
