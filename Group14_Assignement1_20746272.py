@@ -17,7 +17,7 @@ def run():
 	# Read x and y:
 	x, x_final, y = import_data()
 	x, x_final = clean_data(x, x_final)
-	# x_train, x_test, y_train, y_test = split_data(x,y)
+	x_train, x_test, y_train, y_test = split_data(x,y)
 
 	# Trying XGBClassifier
 	# cm, report =\
@@ -29,7 +29,7 @@ def run():
 	# cm, report =\
 				# train_evaluate_randomforest(x_train,x_test,y_train,y_test)
 
-	df_final = predict_test_data(x_final, x, y)
+	df_final = predict_test_data(x_final, x_train, y_train)
 
 
 
@@ -148,10 +148,10 @@ def predict_test_data(x_final, x, y):
 	model.fit(x,y)
 	y_predicted = model.predict(x_final)
 	df = x_final
-	df['y_predicted'] = y_predicted
+	df['income_morethan_50K'] = y_predicted
 	df = df.iloc[:,-1]
 	print(df)
-	df.to_csv('Prediction.csv')
+	df.to_csv('Prediction_20746272.csv')
 
 	return df
 
